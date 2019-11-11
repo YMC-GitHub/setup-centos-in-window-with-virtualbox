@@ -9,6 +9,9 @@
 # 安装增强功能后，鼠标可以在虚拟机和主机之间自由切换。
 # 安装增强功能后，可以使用主机和虚拟机之间文件夹共享及双向拷贝。
 ####### 如何进行
+# on pm git-bash:
+
+VM_NAME=centos-7.6
 # 设置存储
 #2 建存储控制器
 #VBoxManage storagectl $VM_NAME --name $STORAGE_CONTROLLER_IDE_NAME --add ide --controller $STORAGE_CONTROLLER_IDE_TYPE --bootable on
@@ -21,6 +24,8 @@ VBOX_GUEST_ADDITIONS_FILE="E:\\Program Files\\Oracle\\VirtualBox\\VBoxGuestAddit
 STROAGE_TYPE=dvddrive #存储驱动类型
 VBoxManage storageattach $VM_NAME --storagectl $STORAGE_CONTROLLER_IDE_NAME --device $IDE_DEVICE --port $IDE_PORT  --type $STROAGE_TYPE --medium "E:\\Program Files\\Oracle\\VirtualBox\\VBoxGuestAdditions.iso"
 #VBoxManage storageattach $VM_NAME --storagectl $STORAGE_CONTROLLER_IDE_NAME --device $IDE_DEVICE --port $IDE_PORT  --type $STROAGE_TYPE --medium $VBOX_GUEST_ADDITIONS_FILE
+
+# on vm bash:
 # 挂载镜像（挂载光驱）
 #挂载到的目录
 VM_MOUT_ISO_DIR=/mnt/VBoxGuestAdditions
