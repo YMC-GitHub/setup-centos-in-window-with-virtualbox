@@ -1,4 +1,4 @@
-# readme before use
+# read me before using
 
 ## usage
 
