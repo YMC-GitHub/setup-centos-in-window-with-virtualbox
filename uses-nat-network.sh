@@ -18,15 +18,15 @@
 #网络名字
 NAT_NETWORK_NAME=natnet1
 #网络地址
-NAT_NETWORK_ADDR=192.168.2.1
+NAT_NETWORK_ADDR=10.0.2.0 #10.0.x.0
 #网络掩码
 NAT_NETWORK_MASK=255.255.255.0
 #网络前缀
-NAT_NETWORK_PREFIX=24
+NAT_NETWORK_PREFIX=24 #24
 #动态获取
 IS_DHCP=false
 #网络操作
-NAT_NETWORK_ACTION="create|start|list" #"create|start|stop|remove|update|list" #
+NAT_NETWORK_ACTION="create|start|list|use" #"create|start|stop|remove|update|list|use" #
 
 #创建NAT网络
 function add_natnetwork(){
@@ -37,10 +37,10 @@ then
 else
 if [[ "$IS_DHCP" =~ 'false' ]]; then
     # 静态
-    VBoxManage natnetwork add --netname $NAT_NETWORK_NAME --network "${NAT_NETWORK_ADDR}/${NAT_NETWORK_PREFIX}" --enable
+    VBoxManage natnetwork add --netname $NAT_NETWORK_NAME --network "${NAT_NETWORK_ADDR}/${NAT_NETWORK_PREFIX}"
 else
     # 动态
-    VBoxManage natnetwork add --netname $NAT_NETWORK_NAME --network "${NAT_NETWORK_ADDR}/${NAT_NETWORK_PREFIX}" --enable --dhcp on
+    VBoxManage natnetwork add --netname $NAT_NETWORK_NAME --network "${NAT_NETWORK_ADDR}/${NAT_NETWORK_PREFIX}"
 fi
 fi
 
@@ -79,7 +79,15 @@ VM_ADDR=192.168.2.3
 #VBoxManage natnetwork modify --netname $NAT_NETWORK_NAME --port-forward-4 "${RULE_NAME}:${RULE_PROTO}:[]:${PM_PORT}:[${VM_ADDR}]:${VM_PORT}" 
 #2 删除某一端口转换规则
 #VBoxManage natnetwork modify --netname $NAT_NETWORK_NAME --port-forward-4 delete $RULE_NAME 
-
+#2
+#VBoxManage natnetwork modify --netname $NAT_NETWORK_NAME --dhcp on
+#2
+#VBoxManage natnetwork modify --netname $NAT_NETWORK_NAME --network <network>
+#2
+#VBoxManage natnetwork modify --netname $NAT_NETWORK_NAME --ipv6 on
+#2
+#VBoxManage natnetwork modify --netname $NAT_NETWORK_NAME --port-forward-6 <rule>
+#2
 
 #列出NAT网络
 if [[ "$NAT_NETWORK_ACTION" =~ 'list' ]]; then
@@ -94,7 +102,7 @@ VM_NAME=centos-7.6-clone
 # 网卡序号
 NET_CARD_NUMBER=2
 # 网络类型
-NET_WORK_TYPE=natnetwork #--nic<1-N> none|null|nat|natnetwork|bridged|intnet|hostonly|generic
+NET_WORK_TYPE=nat #--nic<1-N> none|null|nat|natnetwork|bridged|intnet|hostonly|generic
 #
 NET_WORK_DEVICE_TYPE=82540EM #--nictype<1-N> Am79C970A|Am79C973|82540EM|82543GC|82545EM|virtio:
 # --nat-network<1-N> <network name>:
@@ -105,14 +113,34 @@ NET_WORK_DEVICE_TYPE=82540EM #--nictype<1-N> Am79C970A|Am79C973|82540EM|82543GC|
 #VBoxManage modifyvm $VM_NAME --natpf2 "guestssh,tcp,,2222,10.0.2.19,22"
 #VBoxManage modifyvm $VM_NAME --nat-network<1-N> $NAT_NETWORK_NAME
 #VBoxManage modifyvm $VM_NAME --nic2 nat --nictype2 82540EM --cableconnected2 on
+if [[ "$NAT_NETWORK_ACTION" =~ 'use' ]]; then
+VBoxManage list runningvms | sed "s#{.*}##g" | grep $VM_NAME
+# 关闭
+if [ $? -eq 0 ];then
+    VBoxManage controlvm $VM_NAME poweroff
+    sleep 5
+fi
+fi
+
 if [ $NET_WORK_TYPE = "nat" ]
 then
+    # the next line can not clean clearly
+    $(VBoxManage modifyvm $VM_NAME --nic${NET_CARD_NUMBER} none)
     $(VBoxManage modifyvm $VM_NAME --nic${NET_CARD_NUMBER} nat)
 elif [ $NET_WORK_TYPE = "natnetwork" ]
 then
-    $(VBoxManage modifyvm $VM_NAME --nat-network$NET_CARD_NUMBER $NAT_NETWORK_NAME --nic$NET_CARD_NUMBER natnetwork --nictype$NET_CARD_NUMBER $NET_WORK_DEVICE_TYPE --cableconnected$NET_CARD_NUMBER on)
+    $(VBoxManage modifyvm $VM_NAME --nic${NET_CARD_NUMBER} none)
+    # the next line can not work!
+    #$(VBoxManage modifyvm $VM_NAME --natnet$NET_CARD_NUMBER $NAT_NETWORK_NAME --nic$NET_CARD_NUMBER natnetwork --nictype$NET_CARD_NUMBER $NET_WORK_DEVICE_TYPE --cableconnected$NET_CARD_NUMBER on)
+    # the next line can not work!
+    #$(VBoxManage modifyvm $VM_NAME --nat-network$NET_CARD_NUMBER $NAT_NETWORK_NAME --nic$NET_CARD_NUMBER natnetwork --nictype$NET_CARD_NUMBER $NET_WORK_DEVICE_TYPE --cableconnected$NET_CARD_NUMBER on)
+    #https://www.virtualbox.org/manual/UserManual.html#changenat
 fi
-
+# you can update the natnet network with below:
+#VBoxManage modifyvm $VM_NAME --natnet$NET_CARD_NUMBER "10.0.2.0/24"
+#VBoxManage modifyvm $VM_NAME --natnet$NET_CARD_NUMBER "192.168.x.0/24"
+#VBoxManage modifyvm $VM_NAME --natnet$NET_CARD_NUMBER "xxx.xxx.x.0/xx"
+#
 #### 参考文献
 :<<reference
 VirtualBox 网络连接方式研究（一）
