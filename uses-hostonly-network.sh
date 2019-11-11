@@ -13,11 +13,11 @@ INTERNAL_NET_WORK_NAME_ID="#2"
 # 网卡名字
 INTERNAL_NET_WORK_NAME=
 # 网络地址
-NET_WORK_IP=192.168.3.1
+NET_WORK_IP=192.168.2.1
 # 网络掩码
 NET_WORK_MASK=255.255.255
 # 网卡操作
-NET_CARD_ACTION="create|list|use" #"create|update|remove|list"
+NET_CARD_ACTION="create|update|list|use" #"create|update|remove|list"
 
 # 生成网卡名字
 if [ -n $INTERNAL_NET_WORK_NAME_ID ]
