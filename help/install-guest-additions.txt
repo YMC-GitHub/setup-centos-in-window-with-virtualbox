@@ -1,0 +1,23 @@
+install guest additions on cd or dvd device
+args:
+  -m,--machine options,set runing this shell on where
+  -d,--debug options,set the debug mode
+  -h,--help options,get the cmd help
+examples: 
+  run as shell args
+bash ./install-guest-additions-on-cd-or-dvd-device.sh
+  run as runable application
+./install-guest-additions-on-cd-or-dvd-device.sh --machine vm 
+
+  without args: 
+./install-guest-additions-on-cd-or-dvd-device.sh 
+  with args: 
+./install-guest-additions-on-cd-or-dvd-device.sh --machine vm
+
+  with debug mode: 
+./install-guest-additions-on-cd-or-dvd-device.sh --debug
+
+get help: 
+./install-guest-additions-on-cd-or-dvd-device.sh --help
+
+

@@ -68,6 +68,58 @@ fi
 # installs vm
 #install-guest-additions-on-cd-or-dvd-device
 
+# 帮助信息
+THIS_FILE_PATH=$(cd `dirname $0`; pwd)
+USAGE_MSG_PATH=${THIS_FILE_PATH}/help
+USAGE_MSG_FILE=${USAGE_MSG_PATH}/install-guest-additions.txt
+# 参数规则
+GETOPT_ARGS_SHORT_RULE="--options h,d,m:"
+GETOPT_ARGS_LONG_RULE="--long help,debug,machine:"
+
+# 设置参数规则
+GETOPT_ARGS=`getopt $GETOPT_ARGS_SHORT_RULE \
+$GETOPT_ARGS_LONG_RULE -- "$@"`
+# 解析参数规则
+eval set -- "$GETOPT_ARGS"
+# 更新新的配置
+IS_PM=
+IS_VM=
+MACHINE=
+while [ -n "$1" ]
+do
+    case $1 in
+    -m|--machine) #可选，必接参数
+    MACHINE=$2
+    shift 2
+    ;;
+    -h|--help) #可选，不接参数
+    cat $USAGE_MSG_FILE
+    exit 1
+    ;;
+    -d|--debug) #可选，不接参数
+    IS_DEBUG_MODE=true
+    ;;
+    --)
+    break
+    ;;
+    *)
+    printf "$USAGE_MSG"
+    ;;
+    esac
+done
+
+#处理剩余的参数
+#...
+if [[ "$MACHINE" =~ "pm" ]] ; 
+then 
+    installs "pm"
+elif [[ "$MACHINE" =~ "vm" ]] ; 
+then
+    installs "vm"
+else
+    installs "pm"
+fi 
+}
 
 #安装VBoxGuestAdditions
 :<<install-VBoxGuestAdditions-on-centos
