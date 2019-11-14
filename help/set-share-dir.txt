@@ -1,0 +1,33 @@
+set share dir btween pm and vm
+args:
+  -m,--machine options,set runing this shell on where
+  --vm-name options,set the virtual machine name
+  --pm-share-name options,set the share name
+  --pm-share-dir options,set the share dir of pm
+  --vm-mount-dir options,set the mount dir of vm
+  -d,--debug options,set the debug mode
+  -h,--help options,get the cmd help
+
+
+examples: 
+  run as shell args
+bash ./set-share-dir.sh
+  run as runable application
+./set-share-dir.sh --machine vm 
+
+  without args: 
+./set-share-dir.sh 
+  with args: 
+./set-share-dir.sh --machine vm
+
+  with debug mode: 
+./set-share-dir.sh --debug
+./set-share-dir.sh --vm-name k8s-master --debug
+
+get help: 
+./set-share-dir.sh --help
+
+new feat demo:
+./set-share-dir.sh --vm-name k8s-masker --iso-file "E:\\Program Files\\Oracle\\VirtualBox\\VBoxGuestAdditions-2.iso"
+
+
