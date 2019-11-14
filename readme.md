@@ -48,3 +48,13 @@ how to use it with  production user?  click below :
 [en](./docs/how-to-use-for-pro/uses-hostonly-network.md) ,[zh](./docs/how-to-use-for-pro/zh/uses-hostonly-network.md)
 
 ### uses nat network (optional)
+
+### clones one vm (optional)
+
+how to use it with  developer? click below :
+
+[en](./docs/how-to-use-for-dev/clone-one.md) ,[zh](./docs/how-to-use-for-dev/zh/clone-one.md)
+
+how to use it with  production user?  click below :
+
+[en](./docs/how-to-use-for-pro/clone-one.md) ,[zh](./docs/how-to-use-for-pro/zh/clone-one.md)

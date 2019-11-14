@@ -1,0 +1,28 @@
+clone a vm with virtualbox by VBoxManage cli
+args:
+  --old-vm-name optional,set the old vm name
+  --new-vm-name optional,set the new vm name
+  --old-vm-ip optional,set the old vm ip
+  --new-vm-ip optional,set the new vm ip
+  --path-delimeter-char, optional,set the path delimeter
+  --key-file-name optional,set the ssh private key file name
+  --key-file-path optional,set the ssh private key path
+  --old-vm-user optional,set the vm user
+  -h,--help optional,get the cmd help
+examples: 
+  run as shell args
+bash ./clone-one.sh
+  run as runable application
+./clone-one.sh --new-vm-name k8s-node-10 
+
+  without args: 
+./clone-one.sh 
+  with args: 
+./clone-one.sh --new-vm-name k8s-node-10  --old-vm-name k8s-node-8
+
+  with debug mode: 
+./clone-one.sh --debug
+
+get help: 
+./clone-one.sh --help
+
