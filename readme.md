@@ -1,4 +1,4 @@
-# read me before using
+# reading me before using
 
 ## usage
 
@@ -7,10 +7,10 @@ how to use it with  developer? [click here](./docs/how-to-use-for-dev/clone-one.
 
 how to use it with  production user? [click here](./docs/how-to-use-for-pro/clone-one.md)
 
-### installs guest additions (options)
+### installs guest additions (optional)
 
-### sets share dir (options)
+### sets share dir (optional)
 
-### uses hostonly network (options)
+### uses hostonly network (optional)
 
-### uses nat network (options)
+### uses nat network (optional)
