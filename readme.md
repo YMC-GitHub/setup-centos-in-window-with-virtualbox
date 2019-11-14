@@ -29,6 +29,14 @@ how to use it with  production user?  click below :
 
 ### sets share dir (optional)
 
+how to use it with  developer? click below :
+
+[en](./docs/how-to-use-for-dev/set-share-dir.md) ,[zh](./docs/how-to-use-for-dev/zh/set-share-dir.md)
+
+how to use it with  production user?  click below :
+
+[en](./docs/how-to-use-for-pro/set-share-dir.md) ,[zh](./docs/how-to-use-for-pro/zh/set-share-dir.md)
+
 ### uses hostonly network (optional)
 
 how to use it with  developer? click below :
@@ -40,5 +48,3 @@ how to use it with  production user?  click below :
 [en](./docs/how-to-use-for-pro/uses-hostonly-network.md) ,[zh](./docs/how-to-use-for-pro/zh/uses-hostonly-network.md)
 
 ### uses nat network (optional)
-
-
