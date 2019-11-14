@@ -1,0 +1,22 @@
+create a vm with virtualbox by VBoxManage cli
+args:
+  -f,--file options,set the config file
+  -h,--help options,get the cmd help
+examples: 
+  run as shell args
+bash ./create-one.sh
+  run as runable application
+./create-one.sh --file=vm-config.custom.txt 
+
+  without args: 
+./create-one.sh 
+  with args: 
+./create-one.sh --file=vm-config.custom.txt
+
+  with debug mode: 
+./create-one.sh --debug
+
+get help: 
+./create-one.sh --help
+
+
