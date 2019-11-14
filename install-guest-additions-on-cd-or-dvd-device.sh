@@ -78,7 +78,7 @@ fi
 #echo $VM_NAME,$VBOX_GUEST_ADDITIONS_FILE
 
 function run_on_pm(){
-VM_NAME=centos-7.6
+#VM_NAME=centos-7.6
 # 设置存储
 #2 建存储控制器
 #VBoxManage storagectl $VM_NAME --name $STORAGE_CONTROLLER_IDE_NAME --add ide --controller $STORAGE_CONTROLLER_IDE_TYPE --bootable on
