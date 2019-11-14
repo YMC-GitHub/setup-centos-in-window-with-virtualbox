@@ -1,5 +1,9 @@
 # reading me before using
 
+## desc 
+
+setup centos vm in window with virtualbox solft
+
 ## usage
 
 ### creates one vm
@@ -27,4 +31,4 @@ how to use it with  production user?  click below :
 
 ### uses hostonly network (optional)
 
-### uses nat network (optional)## install-guest-additions-on-cd-or-dvd-device
+### uses nat network (optional)
