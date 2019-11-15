@@ -16,6 +16,25 @@ how to use it with  production user?  click below :
 
 [en](./docs/how-to-use-for-pro/create-one.md) ,[zh](./docs/how-to-use-for-pro/zh/create-one.md)
 
+### uses hostonly network (optional)
+
+how to use it with  developer? click below :
+
+[en](./docs/how-to-use-for-dev/uses-hostonly-network.md) ,[zh](./docs/how-to-use-for-dev/zh/uses-hostonly-network.md)
+
+how to use it with  production user?  click below :
+
+[en](./docs/how-to-use-for-pro/uses-hostonly-network.md) ,[zh](./docs/how-to-use-for-pro/zh/uses-hostonly-network.md)
+
+### uses nat network (optional)
+
+### renames net card name (optional)
+
+### uses static ip (optional)
+
+### connects to vm with ssh (optional)
+
+### sets dns resolve (optional)
 
 ### installs guest additions (optional)
 
@@ -37,17 +56,7 @@ how to use it with  production user?  click below :
 
 [en](./docs/how-to-use-for-pro/set-share-dir.md) ,[zh](./docs/how-to-use-for-pro/zh/set-share-dir.md)
 
-### uses hostonly network (optional)
 
-how to use it with  developer? click below :
-
-[en](./docs/how-to-use-for-dev/uses-hostonly-network.md) ,[zh](./docs/how-to-use-for-dev/zh/uses-hostonly-network.md)
-
-how to use it with  production user?  click below :
-
-[en](./docs/how-to-use-for-pro/uses-hostonly-network.md) ,[zh](./docs/how-to-use-for-pro/zh/uses-hostonly-network.md)
-
-### uses nat network (optional)
 
 ### clones one vm (optional)
 
