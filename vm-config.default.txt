@@ -24,4 +24,3 @@ OS_ISO_NAME=D:\\some-important-soflt\\CentOS-7-x86_64-DVD-1908.iso
 #线程数量
 CPU_PROCESOOR_NUMBER=2
 # 屏幕控制
-DISPLAY_GRAPHICIS_CONTROLLER=VBoxVGA

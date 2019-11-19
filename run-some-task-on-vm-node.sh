@@ -96,4 +96,3 @@ set_dns_resovle_in_china
 #2 ...
 # 退出
 sleep 10
-exit

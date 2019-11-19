@@ -277,4 +277,3 @@ if [[ "$ACTIONS" =~ 'ssh_new_vm' ]]; then
 fi
 
 #### usage
-# bash ./clone-one.sh

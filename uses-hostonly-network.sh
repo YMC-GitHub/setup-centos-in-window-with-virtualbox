@@ -78,9 +78,9 @@ ouput_debug_msg "handle the rest args ..." "true"
 ouput_debug_msg "update built-in config ..." "true"
 # 网卡名字前缀
 INTERNAL_NET_WORK_NAME_PREFIX="VirtualBox Host-Only Ethernet Adapter"
-#INTERNAL_NET_WORK_NAME_ID="" # "#2|"
 # 网卡名字编号
-INTERNAL_NET_WORK_NAME_ID="#2"
+INTERNAL_NET_WORK_NAME_ID="" # "#2|"
+#INTERNAL_NET_WORK_NAME_ID="#2"
 if [ -n "$ARG_ID" ]
 then
     INTERNAL_NET_WORK_NAME_ID=$ARG_ID
@@ -109,7 +109,8 @@ fi
 #echo $INTERNAL_NET_WORK_NAME
 
 #echo $INTERNAL_NET_WORK_NAME_ID,$VM_NAME,$NET_CARD_ACTION
-
+#fix:when none id
+INTERNAL_NET_WORK_NAME=$(echo "$INTERNAL_NET_WORK_NAME"  | sed "s# *\$##")
 #创建hostonly网卡
 if [[ "$NET_CARD_ACTION" =~ 'create' ]]; then
     VBoxManage list hostonlyifs | grep -e "^Name:" | sed "s/Name: *//" | grep "${INTERNAL_NET_WORK_NAME}"
@@ -185,12 +186,3 @@ vboxmanage-modifyvm
 https://www.virtualbox.org/manual/ch08.html#vboxmanage-modifyvm
 Virtualbox+Centos 7虚拟机设置host-only网卡的静态IP地址
 https://blog.csdn.net/yongge1981/article/details/78903886
-MY_PROJECT=centos-uses-firewalld
-mkdir -p ../$MY_PROJECT
-touch ../${MY_PROJECT}/${MY_PROJECT}.sh
-reference
-
-
-
-
-

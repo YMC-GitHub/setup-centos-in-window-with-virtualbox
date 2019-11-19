@@ -28,6 +28,8 @@ how to use it with  production user?  click below :
 
 ### uses nat network (optional)
 
+### sets default boot mode (optional)
+
 ### renames net card name (optional)
 
 ### uses static ip (optional)
