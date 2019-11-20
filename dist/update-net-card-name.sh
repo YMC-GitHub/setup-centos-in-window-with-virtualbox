@@ -1,3 +1,4 @@
+
 #!/bin/sh
 
 # centos7修改网卡名字
@@ -8,78 +9,181 @@
 # 修改配置文件内容
 # 重新启动网络服务
 # 重新启动电脑生效
-
-
-function ouput_debug_msg(){
-local debug_msg=$1
-local debug_swith=$2
-if [[ "$debug_swith" =~ "false" ]] ; 
-then 
-    echo $debug_msg > /dev/null 2>&1
-elif [ -n "$debug_swith" ]
-then
-    echo $debug_msg ; 
-elif [[ "$debug_swith" =~ "true" ]] ; 
-then
-    echo $debug_msg ; 
-    #echo $debug_msg > /dev/null 2>&1
-fi
+###
+# 定义内置变量
+###
+THIS_FILE_PATH=$(cd `dirname $0`; pwd)
+OLD_NET_CARD_FILE_REG=ifcfg-en
+NEW_NET_CARD_NAME=eth0
+NET_CARD_FILE_PATH=/etc/sysconfig/network-scripts
+NEW_NET_CARD_FILE_NAME_PREFIX=ifcfg-
+###
+# 定义内置函数
+###
+function ouput_debug_msg() {
+  local debug_msg=$1
+  local debug_swith=$2
+  if [[ "$debug_swith" =~ "false" ]]; then
+    echo $debug_msg >/dev/null 2>&1
+  elif [ -n "$debug_swith" ]; then
+    echo $debug_msg
+  elif [[ "$debug_swith" =~ "true" ]]; then
+    echo $debug_msg
+  fi
 }
-####function-usage
-# ouput_debug_msg "pm" "false"
-# ouput_debug_msg "pm"
+function path_resolve_for_relative() {
+  local str1="${1}"
+  local str2="${2}"
+  local slpit_char1=/
+  local slpit_char2=/
+  if [[ -n ${3} ]]; then
+    slpit_char1=${3}
+  fi
+  if [[ -n ${4} ]]; then
+    slpit_char2=${4}
+  fi
 
-# 帮助信息
-USAGE_MSG_CONTENT=$(cat<<EOF 
-update net card name
-args:
-  --old-net-card-file-reg optional,set the old new card file name reg
-  --new-net-card-name optional,set the new net card name
-  -d,--debug optional,set the debug mode
-  -h,--help optional,get the cmd help
-examples: 
-  run as shell args
-bash ./update-net-card-name.sh
-  run as runable application
-./update-net-card-name.sh --new-net-card-name eth0
+  # 路径-转为数组
+  local arr1=(${str1//$slpit_char1/ })
+  local arr2=(${str2//$slpit_char2/ })
 
-  without args: 
-./update-net-card-name.sh 
-  with args: 
-./update-net-card-name.sh --new-net-card-name eth0
+  # 路径-解析拼接
+  #2 遍历某一数组
+  #2 删除元素取值
+  #2 获取数组长度
+  #2 获取数组下标
+  #2 数组元素赋值
+  for val2 in ${arr2[@]}; do
+    length=${#arr1[@]}
+    if [ $val2 = ".." ]; then
+      index=$(($length - 1))
+      if [ $index -le 0 ]; then index=0; fi
+      unset arr1[$index]
+      #echo ${arr1[*]}
+      #echo  $index
+    else
+      index=$length
+      arr1[$index]=$val2
+      #echo ${arr1[*]}
+    fi
+  done
+  # 路径-转为字符
+  local str3=''
+  for i in ${arr1[@]}; do
+    str3=$str3/$i
+  done
+  if [ -z $str3 ]; then str3="/"; fi
+  echo $str3
+}
+function path_resolve() {
+  local str1="${1}"
+  local str2="${2}"
+  local slpit_char1=/
+  local slpit_char2=/
+  if [[ -n ${3} ]]; then
+    slpit_char1=${3}
+  fi
+  if [[ -n ${4} ]]; then
+    slpit_char2=${4}
+  fi
 
-  with debug mode: 
-./update-net-card-name.sh --debug
-
-get help: 
-./update-net-card-name.sh --help
-EOF
+  #FIX:when passed asboult path,dose not return the asboult path itself
+  #str2="/d/"
+  local str3=""
+  str2=$(echo $str2 | sed "s#/\$##")
+  ABSOLUTE_PATH_REG_PATTERN="^/"
+  if [[ $str2 =~ $ABSOLUTE_PATH_REG_PATTERN ]]; then
+    str3=$str2
+  else
+    str3=$(path_resolve_for_relative $str1 $str2 $slpit_char1 $slpit_char2)
+  fi
+  echo $str3
+}
+function get_help_msg() {
+  local USAGE_MSG=$1
+  local USAGE_MSG_FILE=$2
+  if [ -z $USAGE_MSG ]; then
+    if [[ -n $USAGE_MSG_FILE && -e $USAGE_MSG_FILE ]]; then
+      USAGE_MSG=$(cat $USAGE_MSG_FILE)
+    else
+      USAGE_MSG="no help msg and file"
+    fi
+  fi
+  echo "$USAGE_MSG"
+}
+function read_config_file(){
+#echo ${THIS_FILE_PATH}
+local CONFIG_FILE=${THIS_FILE_PATH}/${BUILT_IN_CONFIG_FILE_NAME}
+if [ -n "${1}" ]
+then
+    CONFIG_FILE=$1
+fi
+local test=`sed 's/^ *//g' $CONFIG_FILE | grep --invert-match "^#"`
+#字符转为数组
+local arr=($test)
+local key=
+local value=
+for i in "${arr[@]}"; do
+    # 获取键名
+    key=`echo $i|awk -F'=' '{print $1}'`
+    # 获取键值
+    value=`echo $i|awk -F'=' '{print $2}'`
+    # 输出该行
+    #printf "%s\t\n" "$i"
+    dic+=([$key]=$value)
+done
+echo "read confifg file:$CONFIG_FILE"
+}
+# 引入相关文件
+PROJECT_PATH=$(path_resolve $THIS_FILE_PATH "../")
+HELP_DIR=$(path_resolve $THIS_FILE_PATH "../help")
+SRC_DIR=$(path_resolve $THIS_FILE_PATH "../src")
+TEST_DIR=$(path_resolve $THIS_FILE_PATH "../test")
+DIST_DIR=$(path_resolve $THIS_FILE_PATH "../dist")
+DOCS_DIR=$(path_resolve $THIS_FILE_PATH "../docs")
+TOOL_DIR=$(path_resolve $THIS_FILE_PATH "../tool")
+# 参数帮助信息
+USAGE_MSG=
+USAGE_MSG_PATH=$(path_resolve $THIS_FILE_PATH "../help")
+USAGE_MSG_FILE=${USAGE_MSG_PATH}/update-net-card-name.txt
+USAGE_MSG=$(get_help_msg "$USAGE_MSG" "$USAGE_MSG_FILE")
+###
+#参数规则内容
+###
+GETOPT_ARGS_SHORT_RULE="--options h,d,"
+GETOPT_ARGS_LONG_RULE="--long help,debug,new-net-card-name:,old-net-card-file-reg:,reboot:"
+###
+#设置参数规则
+###
+GETOPT_ARGS=$(
+  getopt $GETOPT_ARGS_SHORT_RULE \
+  $GETOPT_ARGS_LONG_RULE -- "$@"
 )
-
-# 设置参数规则
-GETOPT_ARGS_SHORT_RULE="--options h,d"
-GETOPT_ARGS_LONG_RULE="--long help,debug,old-net-card-file-reg:,new-net-card-name:"
-GETOPT_ARGS=`getopt $GETOPT_ARGS_SHORT_RULE \
-$GETOPT_ARGS_LONG_RULE -- "$@"`
-# 解析参数规则
-ouput_debug_msg "parse the args passed by cli ..." "true"
+###
+#解析参数规则
+###
 eval set -- "$GETOPT_ARGS"
+# below generated by write-sources.sh
 while [ -n "$1" ]
 do
     case $1 in
-    --old-net-card-file-reg) #可选，必接参数
-    ARG_OLD_NET_CARD_FILE_REG=$2
-    shift 2
-    ;;
-    --new-net-card-name) #可选，必接参数
+    --new-net-card-name)
     ARG_NEW_NET_CARD_NAME=$2
     shift 2
     ;;
-    -h|--help) #可选，不接参数
-    echo "$USAGE_MSG_CONTENT"
+    --old-net-card-file-reg)
+    ARG_OLD_NET_CARD_FILE_REG=$2
+    shift 2
+    ;;
+    --reboot)
+    ARG_REBOOT=$2
+    shift 2
+    ;;
+    -h|--help)
+    echo "$USAGE_MSG"
     exit 1
     ;;
-    -d|--debug) #可选，不接参数
+    -d|--debug)
     IS_DEBUG_MODE=true
     shift 2
     ;;
@@ -87,24 +191,18 @@ do
     break
     ;;
     *)
-    echo "$USAGE_MSG_CONTENT"
+    printf "$USAGE_MSG"
     ;;
     esac
 done
-
-#处理剩余的参数
-ouput_debug_msg "handle the rest args ..." "true"
-#...
-ouput_debug_msg "update built-in config ..." "true"
-
-
-# 查看系统版本
-cat /etc/redhat-release
-# 网卡名字正则
-OLD_NET_CARD_FILE_REG=ifcfg-en
-NEW_NET_CARD_NAME=eth0
-NET_CARD_FILE_PATH=/etc/sysconfig/network-scripts
-NEW_NET_CARD_FILE_NAME_PREFIX=ifcfg-
+###
+#处理剩余参数
+###
+# optional
+###
+#更新内置变量
+###
+# below generated by write-sources.sh
 
 if [ -n "$ARG_NEW_NET_CARD_NAME" ]
 then
@@ -114,7 +212,15 @@ if [ -n "$ARG_OLD_NET_CARD_FILE_REG" ]
 then
     OLD_NET_CARD_FILE_REG=$ARG_OLD_NET_CARD_FILE_REG
 fi
-
+if [ -n "$ARG_REBOOT" ]
+then
+    REBOOT=$ARG_REBOOT
+fi
+###
+#脚本主要代码
+###
+# 查看系统版本
+cat /etc/redhat-release
 
 NEW_NET_CARD_FILE_NAME=${NEW_NET_CARD_FILE_NAME_PREFIX}${NEW_NET_CARD_NAME}
 OLD_NET_CARD_FILE_NAME=
@@ -149,15 +255,8 @@ sed -i "s#$LABEL_VAL#$LABEL_VAL$INSERT_VAL#g" /etc/default/grub
 # 生成GRUB配置并更新内核参数
 grub2-mkconfig --output /boot/grub2/grub.cfg
 # 重启系统
-reboot
-
-#### note
-# 编码脚本
-#cat update-net-card-name.sh
-# 赋予权限
-#chmod +x update-net-card-name.sh
-# 上传脚本
-# 下载脚本
-# 使用脚本
-# cd /to/the/path/
-# ./update-net-card-name.sh
+IS_REBOOT=$(echo "$REBOOT" | tr "[:upper:]" "[:lower:]")
+if [[ $IS_REBOOT == "true" ]]; then
+  echo "reboot the machine"
+  reboot
+fi
