@@ -186,3 +186,4 @@ vboxmanage-modifyvm
 https://www.virtualbox.org/manual/ch08.html#vboxmanage-modifyvm
 Virtualbox+Centos 7虚拟机设置host-only网卡的静态IP地址
 https://blog.csdn.net/yongge1981/article/details/78903886
+reference
