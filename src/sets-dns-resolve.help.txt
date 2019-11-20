@@ -1,0 +1,29 @@
+<desc>
+  set the dns resolve for a machine
+<desc/>
+<args>
+  --dns-config-file optional,set the dns config file in a machine
+  --ip-zone optional,set the machine where it is
+  --dns-name optional,set the dns name support
+  --restart-network optional,swicth the network restart
+  -h,--help optional,get the cmd help
+<args/>
+<how-to-run>
+  run as shell args
+    bash ./sets-dns-resolve.sh
+  run as runable application
+    ./sets-dns-resolve.sh --ip-zone=CHINA
+<how-to-run/>
+<demo-with-args>
+  without args:
+    ok:./sets-dns-resolve.sh
+  passed arg with necessary value:
+    ok:./sets-dns-resolve.sh --ip-zone=CHINA
+  passed arg with optional value
+  passed arg without value
+<demo-with-args/>
+<how-to-get-help>
+  ok:./sets-dns-resolve.sh --help
+  ok:./sets-dns-resolve.sh -h
+  ok:./sets-dns-resolve.sh --debug
+<how-to-get-help/>

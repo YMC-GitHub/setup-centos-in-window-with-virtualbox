@@ -1,13 +1,16 @@
-desc:
+<desc>
   run some task on a machine
-args:
+<desc/>
+<args>
   -h,--help optional,get the cmd help
-how-to-run:
+<args/>
+<how-to-run>
   run as shell args
     bash ./run-some-task-on-vm-node.sh
   run as runable application
     ./run-some-task-on-vm-node.sh --custom-file=a-config-file-2.txt
-demo-with-args:
+<how-to-run/>
+<demo-with-args>
   without args:
     ok:./run-some-task-on-vm-node.sh
   passed arg with necessary value:
@@ -15,7 +18,8 @@ demo-with-args:
     ok:./run-some-task-on-vm-node.sh --custom-file a-config-file-2.txt
   passed arg with optional value
   passed arg without value
-how-to-get-help:
+<demo-with-args/>
+<how-to-get-help>
   ok:./run-some-task-on-vm-node.sh --help
   ok:./run-some-task-on-vm-node.sh -h
   ok:./run-some-task-on-vm-node.sh --debug
@@ -23,3 +27,4 @@ debug-log:
   ok:./debug/run-some-task-on-vm-node.sh --custom-file=a-config-file-2.txt
   ok:./debug/run-some-task-on-vm-node.sh --custom-file=a-config-file-2.txt --no-built-in "yes"
   ok:./debug/run-some-task-on-vm-node.sh --custom-file=a-config-file-2.txt --no-built-in "yes" --file-path "dist"
+<how-to-get-help/>

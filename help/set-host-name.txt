@@ -1,0 +1,21 @@
+desc:
+  set the host name for a machine
+args:
+  --vm-host-name optional,set the machine host name
+  -h,--help optional,get the cmd help
+how-to-run:
+  run as shell args
+    bash ./set-host-name.sh
+  run as runable application
+    ./set-host-name.sh --vm-host-name=k8s-node-9
+demo-with-args:
+  without args:
+    ok:./set-host-name.sh
+  passed arg with necessary value:
+    ok:./set-host-name.sh --vm-host-name=k8s-node-9
+  passed arg with optional value
+  passed arg without value
+how-to-get-help:
+  ok:./set-host-name.sh --help
+  ok:./set-host-name.sh -h
+  ok:./set-host-name.sh --debug

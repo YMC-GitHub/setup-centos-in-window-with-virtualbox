@@ -1,0 +1,30 @@
+<desc>
+  read config from a file
+<desc/>
+<args>
+  --privite-key-file-name optional,set the privite key file name
+  --privite-key-file-path optional,set the privite key file path
+  --public-key-file-name optional,set the public key file name
+  --ssh-server-ip optional,set the ssh server machine ip
+  --ssh-server-user optional,set the ssh server machine user
+  -h,--help optional,get the cmd help
+<args/>
+<how-to-run>
+  run as shell args
+    bash ./connects-to-vm-with-ssh.sh
+  run as runable application
+    ./connects-to-vm-with-ssh.sh --privite-key-file-name=xx
+<how-to-run/>
+<demo-with-args>
+  without args:
+    ok:./connects-to-vm-with-ssh.sh
+  passed arg with necessary value:
+    ok:./connects-to-vm-with-ssh.sh --privite-key-file-name=xx
+  passed arg with optional value
+  passed arg without value
+<demo-with-args/>
+<how-to-get-help>
+  ok:./connects-to-vm-with-ssh.sh --help
+  ok:./connects-to-vm-with-ssh.sh -h
+  ok:./connects-to-vm-with-ssh.sh --debug
+<how-to-get-help/>
