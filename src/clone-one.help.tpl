@@ -7,7 +7,7 @@
   --new-vm-name optional,set the new vm name
   --old-vm-ip optional,set the old vm ip
   --new-vm-ip optional,set the new vm ip
-  --path-delimeter-char, optional,set the path delimeter
+  --path-delimeter-char optional,set the path delimeter
   --key-file-name optional,set the ssh private key file name
   --key-file-path optional,set the ssh private key path
   --old-vm-user optional,set the vm user
