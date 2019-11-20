@@ -1,14 +1,12 @@
-
-
 <desc>
   uses hostonly network
 <desc/>
 <args>
-  --vm-name options,set the virtual machine name
-  --actions options,set the actions of net card operation,can be create|update|remove|list|use
-  --id options,set the net card id,can be "|#2|#3|#x"
-  -d,--debug options,set the debug mode
-  -h,--help options,get the cmd help
+  --vm-name optional,set the virtual machine name
+  --actions optional,set the actions of net card operation,can be create|update|remove|list|use
+  --id optional,set the net card id,can be "|#2|#3|#x"
+  -d,--debug optional,set the debug mode
+  -h,--help optional,get the cmd help
 <args/>
 <how-to-run>
   run as shell args
