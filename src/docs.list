@@ -1,0 +1,9 @@
+
+clone-one
+create-one
+install-guest-additions-on-cd-or-dvd-device
+run-some-task-on-vm-node
+#set-share-dir
+update-net-card-name
+uses-hostonly-network
+#uses-nat-network
