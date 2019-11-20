@@ -5,6 +5,7 @@
 <args>
   --old-net-card-file-reg optional,set the old new card file name reg
   --new-net-card-name optional,set the new net card name
+  --reboot optional,the switch to reboot machine
   -d,--debug optional,set the debug mode
   -h,--help optional,get the cmd help
 <args/>
